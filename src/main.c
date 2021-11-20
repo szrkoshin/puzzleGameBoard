@@ -40,12 +40,15 @@ int main(void){
     InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
     InitializePin(GPIOC, GPIO_PIN_13, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
 
+    InitializeKeypad();
+    char *keypad_symbols = "123A456B789C*0#D";
+
     SerialSetup(9600);
 
-    unsigned int total = 0;
+    int total = 0;
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
     
-    //LED BLINKING COUNTER
+    //LED BLINKING COUNTER: TEMPORARILY uses button and led on the board
     while (1){
 
         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
@@ -62,11 +65,34 @@ int main(void){
             HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
             HAL_Delay(250);  // 250 milliseconds == 1/4 second
         }
+
+        while (ReadKeypad() < 0);   // wait for a valid key
+
+        char key = keypad_symbols[ReadKeypad()];
+        
+
+        char buff[100];
+        if (key == total)  // top-right key in a 4x4 keypad, usually 'A'
+        {
+            sprintf(buff, "Correct Key Press: %d", total);
+        } else {
+            sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\n", key, total);
+        }
+        SerialPuts(buff);
+
+        while (ReadKeypad() >= 0);  // wait until key is released
     }
 
     //RGB LED REACTION TIMER
     //USE STARTER CODE VIDEO 5:00 Calculate time interval
     //USE: HAL_Get_Tick() once -> another time to count interval
+    //USE: sprintf(...) for debugging purposes
+
+    //Example:
+    //Char buff[100];
+    //sprintf(buff, "Value is %d units", value);
+    //SerialPuts(buff);
+
     
     /*
     
@@ -78,12 +104,8 @@ int main(void){
     {
     }
     */
-}
-
-//Prevous Code Commented out except for last function after Main
-
-/*int main(void)
-{
+    //Prevous Code Commented out except for last function after Main
+    /*
     HAL_Init(); // initialize the Hardware Abstraction Layer
 
     // Peripherals (including GPIOs) are disabled by default to save power, so we
@@ -107,7 +129,7 @@ int main(void){
 
     // as mentioned above, only one of the following code sections will be used
     // (depending on which of the #define statements at the top of this file has been uncommented)
-
+    */
 #ifdef BUTTON_BLINK
     // Wait for the user to push the blue button, then blink the LED.
 
@@ -320,9 +342,8 @@ int main(void){
         }
     }
 #endif
-    return 0;
 }
-*/
+
 
 // This function is called by the HAL once every millisecond
 void SysTick_Handler(void)
