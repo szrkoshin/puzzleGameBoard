@@ -25,10 +25,49 @@
 #include <stdbool.h> // booleans, i.e. true and false
 #include <stdio.h>   // sprintf() function
 #include <stdlib.h>  // srand() and random() functions
+#include <time.h> // time function
 
 #include "ece198.h"
 
-int main(void)
+
+
+int main(void){
+    HAL_Init();
+
+    __HAL_RCC_GPIOA_CLK_ENABLE(); //Enable Port A
+    __HAL_RCC_GPIOC_CLK_ENABLE(); //Enable Port C
+
+    InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    InitializePin(GPIOC, GPIO_PIN_13, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+
+    SerialSetup(9600);
+
+    unsigned int total = 0;
+    srand(time(NULL)); //Generates A New Set of random numbers for every reset
+
+    while (1){
+
+        while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
+        {
+        }
+
+        total = rand() % 9 + 1; // digits 1 to 9
+        int i;
+
+        HAL_Delay(1000);
+
+        for ( i = 1 ; i <= (2*total); ++i ) //Loop twice the amount of total
+        {
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+            HAL_Delay(250);  // 250 milliseconds == 1/4 second
+        }
+    }
+
+}
+
+//Prevous Code Commented out expecept for last function after Main
+
+/*int main(void)
 {
     HAL_Init(); // initialize the Hardware Abstraction Layer
 
@@ -268,6 +307,7 @@ int main(void)
 #endif
     return 0;
 }
+*/
 
 // This function is called by the HAL once every millisecond
 void SysTick_Handler(void)
