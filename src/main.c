@@ -44,7 +44,8 @@ int main(void){
 
     unsigned int total = 0;
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
-
+    
+    //LED BLINKING COUNTER
     while (1){
 
         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
@@ -63,9 +64,23 @@ int main(void){
         }
     }
 
+    //RGB LED REACTION TIMER
+    //USE STARTER CODE VIDEO 5:00 Calculate time interval
+    //USE: HAL_Get_Tick() once -> another time to count interval
+    
+    /*
+    
+    //Store Current time
+    uint32_t now = HAL_Get_Tick();
+
+    //Reaction of 1 seccond
+    while((HAL_Get_Tick() - now) < 1000) //1 Second Reaction timer
+    {
+    }
+    */
 }
 
-//Prevous Code Commented out expecept for last function after Main
+//Prevous Code Commented out except for last function after Main
 
 /*int main(void)
 {
