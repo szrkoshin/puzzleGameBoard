@@ -1,3 +1,4 @@
+/*
 char character_keypad();
 
 char character_keypad(){
@@ -5,3 +6,4 @@ char character_keypad(){
 
     return keypad_symbols[ReadKeypad()];
 }
+*/
