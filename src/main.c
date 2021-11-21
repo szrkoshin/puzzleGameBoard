@@ -35,10 +35,20 @@ int main(void){
     HAL_Init();
 
     __HAL_RCC_GPIOA_CLK_ENABLE(); //Enable Port A
+    __HAL_RCC_GPIOB_CLK_ENABLE(); //Enable Port B
     __HAL_RCC_GPIOC_CLK_ENABLE(); //Enable Port C
 
-    InitializePin(GPIOA, GPIO_PIN_5, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
-    InitializePin(GPIOC, GPIO_PIN_13, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+    //Built-in-LED
+    InitializePin(GPIOA, GPIO_PIN_5 , GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    //Keypad GPIOA Pins
+    InitializePin(GPIOA, GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10, GPIO_MODE_INPUT, GPIO_NOPULL, 0); 
+
+    //Keypad GPIOB Pins
+    InitializePin(GPIOB, GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_10, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+    
+    //Keypad GPIOC PIN_7 and Built in Button GPIO PIN_13
+    InitializePin(GPIOC, GPIO_PIN_13 | GPIO_PIN_7, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
+
 
     InitializeKeypad();
     char *keypad_symbols = "123A456B789C*0#D";
