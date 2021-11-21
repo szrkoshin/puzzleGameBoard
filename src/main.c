@@ -30,6 +30,7 @@
 #include "ece198.h"
 
 void LED_Counter(char *keypad_symbols);
+void Game_24();
 
 int main(void){
     HAL_Init();
@@ -382,5 +383,10 @@ void RGB_Reaction()
     int r = rand() % 2;
     int g = rand() % 2;
     int b = rand() % 2;
+
+}
+
+void Game_24()
+{
 
 }
