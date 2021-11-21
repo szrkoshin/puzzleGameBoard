@@ -367,3 +367,8 @@ void LED_Counter(char *keypad_symbols){
 
     while (ReadKeypad() >= 0);  // wait until key is released
 }
+
+// void RGB_Reaction()
+// {
+
+// }
