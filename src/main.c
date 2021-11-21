@@ -29,7 +29,8 @@
 
 #include "ece198.h"
 
-void LED_Counter(char *keypad_symbols);
+void LED_Counter();
+char character_keypad();
 
 int main(void){
     HAL_Init();
@@ -54,7 +55,6 @@ int main(void){
 
 
     InitializeKeypad();
-    char *keypad_symbols = "123A456B789C*0#D";
 
     SerialSetup(9600);
 
@@ -66,7 +66,7 @@ int main(void){
         //If button is pressed run LED_Count
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
-            LED_Counter(keypad_symbols);
+            LED_Counter();
         }
         
         //insert other programs here:
@@ -342,7 +342,7 @@ void SysTick_Handler(void)
     // we can do other things in here too if we need to, but be careful
 }
 
-void LED_Counter(char *keypad_symbols){
+void LED_Counter(){
     HAL_Delay(2000);
     
     int total = rand() % 9 + 1; // digits 1 to 9
@@ -356,7 +356,7 @@ void LED_Counter(char *keypad_symbols){
 
     while (ReadKeypad() < 0);   // wait for a valid key
 
-    char key = keypad_symbols[ReadKeypad()];
+    char key = character_keypad();
     
 
     char buff[100];
@@ -371,6 +371,11 @@ void LED_Counter(char *keypad_symbols){
     while (ReadKeypad() >= 0);  // wait until key is released
 }
 
+char character_keypad(){
+    char *keypad_symbols = "123A456B789C*0#D";
+
+    return keypad_symbols[ReadKeypad()];
+}
 
 //Outputs: RGB LED, LCD display 
 //Inputs: External button
