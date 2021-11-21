@@ -29,7 +29,7 @@
 
 #include "ece198.h"
 
-
+void LED_Counter(char *keypad_symbols);
 
 int main(void){
     HAL_Init();
@@ -55,42 +55,19 @@ int main(void){
 
     SerialSetup(9600);
 
-    int total = 0;
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
     
     //LED BLINKING COUNTER: TEMPORARILY uses button and led on the board
     while (1){
 
-        while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
+        //If button is pressed run LED_Count
+        while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
+            LED_Counter(keypad_symbols);
         }
-
-        total = rand() % 9 + 1; // digits 1 to 9
-        int i;
-
-        HAL_Delay(1000);
-
-        for ( i = 1 ; i <= (2*total); ++i ) //Loop twice the amount of total
-        {
-            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-            HAL_Delay(250);  // 250 milliseconds == 1/4 second
-        }
-
-        while (ReadKeypad() < 0);   // wait for a valid key
-
-        char key = keypad_symbols[ReadKeypad()];
         
+        //insert other programs here:
 
-        char buff[100];
-        if (key == total)  // top-right key in a 4x4 keypad, usually 'A'
-        {
-            sprintf(buff, "Correct Key Press: %d", total);
-        } else {
-            sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\n", key, total);
-        }
-        SerialPuts(buff);
-
-        while (ReadKeypad() >= 0);  // wait until key is released
     }
 
     //RGB LED REACTION TIMER
@@ -360,4 +337,33 @@ void SysTick_Handler(void)
 {
     HAL_IncTick(); // tell HAL that a new tick has happened
     // we can do other things in here too if we need to, but be careful
+}
+
+void LED_Counter(char *keypad_symbols){
+    HAL_Delay(2000);
+    
+    int total = rand() % 9 + 1; // digits 1 to 9
+    int i;
+
+    for ( i = 1 ; i <= (2*total); ++i ) //Loop twice the amount of total
+    {
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+        HAL_Delay(250);  // 250 milliseconds == 1/4 second
+    }
+
+    while (ReadKeypad() < 0);   // wait for a valid key
+
+    char key = keypad_symbols[ReadKeypad()];
+    
+
+    char buff[100];
+    if (key == total)  // top-right key in a 4x4 keypad, usually 'A'
+    {
+        sprintf(buff, "Correct Key Press: %d", total);
+    } else {
+        sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\n", key, total);
+    }
+    SerialPuts(buff);
+
+    while (ReadKeypad() >= 0);  // wait until key is released
 }
