@@ -49,6 +49,9 @@ int main(void){
     //Keypad GPIOC PIN_7 and Built in Button GPIO PIN_13
     InitializePin(GPIOC, GPIO_PIN_13 | GPIO_PIN_7, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
 
+    //Initialize RGB LED
+    InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+
 
     InitializeKeypad();
     char *keypad_symbols = "123A456B789C*0#D";
@@ -371,7 +374,12 @@ void LED_Counter(char *keypad_symbols){
 
 //Outputs: RGB LED, LCD display 
 //Inputs: External button
-// void RGB_Reaction()
-// {
+void RGB_Reaction()
+{
+    // randomizes (r,g,b) values. Each one being either 0 or 1, because we're given digitalWrite, not analog (0-255).
+    // 
+    int r = rand() % 2;
+    int g = rand() % 2;
+    int b = rand() % 2;
 
-// }
+}
