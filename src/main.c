@@ -50,7 +50,8 @@ int main(void){
     InitializePin(GPIOC, GPIO_PIN_13 | GPIO_PIN_7, GPIO_MODE_INPUT, GPIO_NOPULL, 0);
 
     //Initialize RGB LED
-    InitializePin(GPIOA, GPIO_PIN_9 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+    InitializePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
+
 
 
     InitializeKeypad();
