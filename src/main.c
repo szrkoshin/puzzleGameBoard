@@ -10,14 +10,14 @@
 // To run a particular example, you should remove the comment (//) in
 // front of exactly ONE of the following lines:
 
-#define BUTTON_BLINK
+// #define BUTTON_BLINK
 // #define LIGHT_SCHEDULER
 // #define TIME_RAND
 // #define KEYPAD
 // #define KEYPAD_CONTROL
 // #define SEVEN_SEGMENT
 // #define KEYPAD_SEVEN_SEGMENT
-// #define COLOR_LED
+#define COLOR_LED
 // #define ROTARY_ENCODER
 // #define ANALOG
 // #define PWM
@@ -368,6 +368,9 @@ void LED_Counter(char *keypad_symbols){
     while (ReadKeypad() >= 0);  // wait until key is released
 }
 
+
+//Outputs: RGB LED, LCD display 
+//Inputs: External button
 // void RGB_Reaction()
 // {
 
