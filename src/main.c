@@ -357,10 +357,11 @@ void LED_Counter(char *keypad_symbols){
     while (ReadKeypad() < 0);   // wait for a valid key
 
     char key = keypad_symbols[ReadKeypad()];
-    
+
+    char answer = '0' + total;
 
     char buff[100];
-    if (key == total)
+    if (key == answer)
     {
         sprintf(buff, "Correct Key Press: %d\r\n", total);
     } else {
