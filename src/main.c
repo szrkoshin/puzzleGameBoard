@@ -378,15 +378,19 @@ void LED_Counter(char *keypad_symbols){
 //Outputs: RGB LED, LCD display 
 //Inputs: External button
 void RGB_Reaction()
-{
-    // randomizes (r,g,b) values. Each one being either 0 or 1, because we're given digitalWrite, not analog (0-255).
-    // 
-    int r = rand() % 2;
-    int g = rand() % 2;
-    int b = rand() % 2;
+{   
+    // Modified game rules:
+    // Users will be prompted to react to color RED. LED will cycle through different colours 6 times.
+    // there are 8 possible colors
 
+    // rc for random colour
+    int rc1 = rand() % 7 + 1;
+    int rc2 = rand() % 7 + 1;
+    int rc3 = rand() % 7 + 1;
+    int rc4 = rand() % 7 + 1;
+    int rc5 = rand() % 7 + 1;
+    int rc6 = rand() % 7 + 1;
     
-
 }
 
 void Game_24()
