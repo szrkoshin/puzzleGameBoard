@@ -384,22 +384,22 @@ void RGB_Reaction()
     // there are 8 possible colors. color value for WHITE is 7. (1 1 1)
     // 
     // rc for random colour
-    int rc = rand() % 7 + 1;
-    int correct = rand() % 9;
-    for (int i; i < 10; i++)
+
+    int correct = rand() % 9 + 1;
+    for (int i = 0; i < 10; i++)
     {
         if (i == correct)
         {
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04);  
-        } else if 
+        } else
         {
-            int rc = rand() % 7 + 1;
+            int rc = rand() % 6 + 1;
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
-            int rc = rand() % 7 + 1;  
+            int rc = rand() % 6 + 1;  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
-            int rc = rand() % 7 + 1; 
+            int rc = rand() % 6 + 1; 
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
         }
     }
