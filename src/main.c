@@ -379,28 +379,31 @@ void LED_Counter(char *keypad_symbols){
 //Inputs: External button
 void RGB_Reaction()
 {   
+    HAL_Delay(2000);
+    
     // Modified game rules:
     // Users will be prompted to react to color WHITE. LED will cycle through different colours 10 times.
-    // there are 8 possible colors. color value for WHITE is 7. (1 1 1)
-    // 
+    // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
     // rc for random colour
 
-    int correct = rand() % 9 + 1;
+    int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
     for (int i = 0; i < 10; i++)
     {
         if (i == correct)
         {
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04);  
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
+            HAL_Delay(1500);
         } else
         {
-            int rc = rand() % 6 + 1;
+            int rc = rand() % 6 + 1;  // randomizes between 1 to 6, so OTHER colours cannot be WHITE
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
             int rc = rand() % 6 + 1;  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
             int rc = rand() % 6 + 1; 
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
+            HAL_Delay(1500);
         }
     }
 
