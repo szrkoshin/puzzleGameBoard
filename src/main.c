@@ -387,14 +387,13 @@ void RGB_Reaction()
     // Users will be prompted to react to color WHITE. LED will cycle through different colours 10 times.
     // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
     // rc for random colour
-
+    srand(HAL_GetTick());
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
-    int rc1 = 0;
-    int rc2 = 0;
-    int rc3 = 0;
-    char buff[100];
+    int rc = 0;
+    srand(HAL_GetTick());
     for (int i = 0; i < 10; i++)
     {
+        char buff[100];
         if (i == correct)
         {
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
@@ -404,26 +403,22 @@ void RGB_Reaction()
             // This is where user has window to REACT
         } else
         {
-            rc1 = rand() % 6 + 1;    // randomizes between 1 to 6, so OTHER colours cannot be WHITE
-            rc2 = rand() % 6 + 1;
-            rc3 = rand() % 6 + 1;
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc1 & 0x01);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc2 & 0x02); 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc3 & 0x04);
-            sprintf(buff, "rc1 value is: %d .   ", rc1);
+            rc = rand() % 6 + 1;    // randomizes between 1 to 6, so OTHER colours cannot be WHITE
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
+            sprintf(buff, "Colour value is: %d ", rc);
             SerialPuts(buff);
-            sprintf(buff, "rc2 value is: %d .   ", rc2);
-            SerialPuts(buff);
-            sprintf(buff, "rc3 value is: %d .   ", rc3);
-            SerialPuts(buff);
-            
-
             HAL_Delay(1500);
         }
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
         HAL_Delay(1500);
+
+        sprintf(buff, "Colour value is: %d ", rc);
+        SerialPuts(buff);
+
     }
 
 
