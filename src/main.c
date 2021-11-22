@@ -390,45 +390,42 @@ void RGB_Reaction()
     srand(HAL_GetTick());
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
     int rc = 0;
+    bool gameWon = 0;
     srand(HAL_GetTick());
-    for (int i = 0; i < 10; i++)
-    {
-        char buff[100];
-        if (i == correct)
+    for (int i = 0; i < 10 && gameWon == 0; i++)
         {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
-            HAL_Delay(1200);
-            // This is where user has window to REACT
-            for (int i = 0; i < 1200; i++)
+            char buff[100];
+            if (i == correct)
+            {
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
+                HAL_Delay(1200);
+                // This is where user has window to REACT
+                for (int i = 0; i < 1200; i++)
                 {
                     if (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
                     {
-                        //LCD display: YOU WIN
-                        break;
-                    } else {
-                        HAL_Delay(1);
+                        gameWon = 1;
                     }
                 }
-        } else
-        {
-            rc = rand() % 6 + 1;    // randomizes between 1 to 6, so OTHER colours cannot be WHITE
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
-            sprintf(buff, "Colour value is: %d ", rc);
-            SerialPuts(buff);
+            } else
+            {
+                rc = rand() % 6 + 1;    // randomizes between 1 to 6, so OTHER colours cannot be WHITE
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
+                HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
+                sprintf(buff, "Colour value is: %d ", rc);
+                SerialPuts(buff);
+                HAL_Delay(1200);
+            }
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
             HAL_Delay(1200);
+
+
         }
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
-        HAL_Delay(1200);
-
-
-    }
-
 
 }
 
