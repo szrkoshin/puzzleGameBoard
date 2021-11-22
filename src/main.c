@@ -248,18 +248,18 @@ int main(void){
     // Remember that each of those three pins must go through a 220 ohm current-limiting resistor!
     // Also remember that the longest pin on the LED should be hooked up to GND.
 
-    InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // initialize color LED output pins
-    while (true) {
-        for (int color = 0; color < 8; ++color) {
-            // bottom three bits indicate which of the three LEDs should be on (eight possible combinations)
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, color & 0x01);  // blue  (hex 1 == 0001 binary)
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, color & 0x02);  // green (hex 2 == 0010 binary)
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, color & 0x04);  // red   (hex 4 == 0100 binary)
+    // InitializePin(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);  // initialize color LED output pins
+    // while (true) {
+    //     for (int color = 0; color < 8; ++color) {
+    //         // bottom three bits indicate which of the three LEDs should be on (eight possible combinations)
+    //         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, color & 0x01);  // blue  (hex 1 == 0001 binary)
+    //         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, color & 0x02);  // green (hex 2 == 0010 binary)
+    //         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, color & 0x04);  // red   (hex 4 == 0100 binary)
 
-            while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));   // wait for button press 
-            while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // wait for button release
-        }
-    }
+    //         while (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));   // wait for button press 
+    //         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13));  // wait for button release
+    //     }
+    // }
 #endif
 
 #ifdef ROTARY_ENCODER
@@ -378,6 +378,7 @@ void LED_Counter(char *keypad_symbols){
 //Outputs: RGB LED, LCD display 
 //Inputs: External button
 void RGB_Reaction()
+<<<<<<< HEAD
 {
     // randomizes (r,g,b) values. Each one being either 0 or 1, because we're given digitalWrite, not analog (0-255).
     // 
@@ -385,6 +386,36 @@ void RGB_Reaction()
     int g = rand() % 2;
     int b = rand() % 2;
 
+=======
+{   
+    HAL_Delay(2000);
+    
+    // Modified game rules:
+    // Users will be prompted to react to color WHITE. LED will cycle through different colours 10 times.
+    // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
+    // rc for random colour
+
+    int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == correct)
+        {
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
+            HAL_Delay(1500);
+        } else
+        {
+            int rc = rand() % 6 + 1;  // randomizes between 1 to 6, so OTHER colours cannot be WHITE
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
+            int rc = rand() % 6 + 1;  
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
+            int rc = rand() % 6 + 1; 
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
+            HAL_Delay(1500);
+        }
+    }
+>>>>>>> a0e22a9e1eac0c71ba6d47e9024443c48c2d1448
 
 
 }
