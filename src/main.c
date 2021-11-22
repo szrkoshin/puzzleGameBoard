@@ -401,6 +401,16 @@ void RGB_Reaction()
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
             HAL_Delay(1200);
             // This is where user has window to REACT
+            for (int i = 0; i < 1200; i++)
+                {
+                    if (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
+                    {
+                        //LCD display: YOU WIN
+                        break;
+                    } else {
+                        HAL_Delay(1);
+                    }
+                }
         } else
         {
             rc = rand() % 6 + 1;    // randomizes between 1 to 6, so OTHER colours cannot be WHITE
