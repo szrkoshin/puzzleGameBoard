@@ -69,7 +69,7 @@ int main(void){
         //If button is pressed run LED_Count
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
-            LED_Counter(keypad_symbols);
+            Game_24();
         }
         
         //insert other programs here:
@@ -385,11 +385,66 @@ void RGB_Reaction()
     int g = rand() % 2;
     int b = rand() % 2;
 
-    
+
 
 }
 
 void Game_24()
 {
+    //Prints 24 Game to console
+    char game[100];
+    sprintf(game, "24 Game\r\n");
+    SerialPuts(game);
+
+    //Key Values
+    char *keypad_symbols = "123+456-789*000/";
+    
+    //Number of Digits
+    int num[4] = {};
+
+    for (int i=0; i < 4; ++i){
+        num[i] = rand() % 9 + 1;
+        sprintf(game, "Value:%d ", num[i]);
+        SerialPuts(game);
+    }
+    
+    char key = '0';
+    int total = 0;
+
+    int i = 0;
+    while( i < 4){
+        while (ReadKeypad() < 0);
+        key = keypad_symbols[ReadKeypad()];
+
+        if (key == '+')
+        {
+            total += num[i] + num[i+1];
+
+        } else if (key == '-')
+        {
+            total += num[i] - num[i+1];
+
+        } else if (key == '*')
+        {
+            total += num[i] * num[i+1];
+
+        } else if (key == '/')
+        {
+            total += num[i] / num[i+1];
+        }    
+        
+        ++i;
+    }
+
+    char buff[100];
+
+    if (total == 24)
+    {
+        sprintf(buff, "Correct Value: %d\r\n", total);
+    } else {
+        sprintf(buff, "Incorrect Value: %d     Correct Value: 24\r\n", total);
+    }
+    
+    SerialPuts(buff);
 
 }
