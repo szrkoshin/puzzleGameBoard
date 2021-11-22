@@ -390,9 +390,10 @@ void RGB_Reaction()
     srand(HAL_GetTick());
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
     int rc = 0;
+    int i = 0;
     bool gameWon = 0;
     srand(HAL_GetTick());
-    for (int i = 0; i < 10 && gameWon == 0; i++)
+    while (i < 10 && gameWon == 0)
         {
             char buff[100];
             if (i == correct)
@@ -423,7 +424,7 @@ void RGB_Reaction()
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
             HAL_Delay(1200);
-
+            i++;
 
         }
 
