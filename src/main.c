@@ -399,7 +399,7 @@ void RGB_Reaction()
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
-            HAL_Delay(1500);
+            HAL_Delay(1200);
             // This is where user has window to REACT
         } else
         {
@@ -409,15 +409,13 @@ void RGB_Reaction()
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
             sprintf(buff, "Colour value is: %d ", rc);
             SerialPuts(buff);
-            HAL_Delay(1500);
+            HAL_Delay(1200);
         }
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
-        HAL_Delay(1500);
+        HAL_Delay(1200);
 
-        sprintf(buff, "Colour value is: %d ", rc);
-        SerialPuts(buff);
 
     }
 
