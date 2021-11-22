@@ -69,7 +69,7 @@ int main(void){
         //If button is pressed run LED_Count
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
-            Game_24();
+            RGB_Reaction();
         }
         
         //insert other programs here:
@@ -378,15 +378,6 @@ void LED_Counter(char *keypad_symbols){
 //Outputs: RGB LED, LCD display 
 //Inputs: External button
 void RGB_Reaction()
-<<<<<<< HEAD
-{
-    // randomizes (r,g,b) values. Each one being either 0 or 1, because we're given digitalWrite, not analog (0-255).
-    // 
-    int r = rand() % 2;
-    int g = rand() % 2;
-    int b = rand() % 2;
-
-=======
 {   
     HAL_Delay(2000);
     
@@ -415,7 +406,6 @@ void RGB_Reaction()
             HAL_Delay(1500);
         }
     }
->>>>>>> a0e22a9e1eac0c71ba6d47e9024443c48c2d1448
 
 
 }
