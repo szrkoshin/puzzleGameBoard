@@ -380,7 +380,9 @@ void LED_Counter(char *keypad_symbols){
 void RGB_Reaction()
 {   
     HAL_Delay(2000);
-    
+    // Print "RGB REACTION GAME"
+    // Print "Click button when LED turns WHITE"
+
     // Modified game rules:
     // Users will be prompted to react to color WHITE. LED will cycle through different colours 10 times.
     // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
@@ -396,6 +398,7 @@ void RGB_Reaction()
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
             HAL_Delay(1500);
+            // This is where user has window to REACT
         } else
         {
             rc = rand() % 6 + 1;  // randomizes between 1 to 6, so OTHER colours cannot be WHITE
@@ -406,6 +409,10 @@ void RGB_Reaction()
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
             HAL_Delay(1500);
         }
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
+        HAL_Delay(1500);
     }
 
 
