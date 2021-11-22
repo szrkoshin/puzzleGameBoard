@@ -387,6 +387,7 @@ void RGB_Reaction()
     // rc for random colour
 
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
+    int rc = 0;
     for (int i = 0; i < 10; i++)
     {
         if (i == correct)
@@ -397,11 +398,11 @@ void RGB_Reaction()
             HAL_Delay(1500);
         } else
         {
-            int rc = rand() % 6 + 1;  // randomizes between 1 to 6, so OTHER colours cannot be WHITE
+            rc = rand() % 6 + 1;  // randomizes between 1 to 6, so OTHER colours cannot be WHITE
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
-            int rc = rand() % 6 + 1;  
+            rc = rand() % 6 + 1;  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
-            int rc = rand() % 6 + 1; 
+            rc = rand() % 6 + 1; 
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
             HAL_Delay(1500);
         }
