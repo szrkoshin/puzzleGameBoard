@@ -389,7 +389,10 @@ void RGB_Reaction()
     // rc for random colour
 
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
-    int rc = 0;
+    int rc1 = 0;
+    int rc2 = 0;
+    int rc3 = 0;
+    char buff[100];
     for (int i = 0; i < 10; i++)
     {
         if (i == correct)
@@ -401,12 +404,20 @@ void RGB_Reaction()
             // This is where user has window to REACT
         } else
         {
-            rc = rand() % 6 + 1;  // randomizes between 1 to 6, so OTHER colours cannot be WHITE
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
-            rc = rand() % 6 + 1;  
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
-            rc = rand() % 6 + 1; 
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
+            rc1 = rand() % 6 + 1;    // randomizes between 1 to 6, so OTHER colours cannot be WHITE
+            rc2 = rand() % 6 + 1;
+            rc3 = rand() % 6 + 1;
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc1 & 0x01);
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc2 & 0x02); 
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc3 & 0x04);
+            sprintf(buff, "rc1 value is: %d .   ", rc1);
+            SerialPuts(buff);
+            sprintf(buff, "rc2 value is: %d .   ", rc2);
+            SerialPuts(buff);
+            sprintf(buff, "rc3 value is: %d .   ", rc3);
+            SerialPuts(buff);
+            
+
             HAL_Delay(1500);
         }
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
