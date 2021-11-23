@@ -450,28 +450,28 @@ void Game_24()
     }
     
     char key = '0';
-    int total = 0;
+    int total = num[0];
 
-    int i = 0;
+    int i = 1;
     while( i < 4){
         while (ReadKeypad() < 0);
         key = keypad_symbols[ReadKeypad()];
 
         if (key == '+')
         {
-            total += num[i] + num[i+1];
+            total += num[i];
 
         } else if (key == '-')
         {
-            total += num[i] - num[i+1];
+            total -= num[i];
 
         } else if (key == '*')
         {
-            total += num[i] * num[i+1];
+            total *= num[i];
 
         } else if (key == '/')
         {
-            total += num[i] / num[i+1];
+            total /= num[i];
         }    
         
         ++i;
