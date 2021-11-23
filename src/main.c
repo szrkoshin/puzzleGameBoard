@@ -449,8 +449,6 @@ void Game_24()
         //Random Numbers
         for (int i=0; i < 4; ++i){
             num[i] = rand() % 9 + 1;
-            sprintf(game, "Value:%d \r\n", num[i]);
-            SerialPuts(game);
         }
 
         //Algorithm to check if value works
@@ -472,6 +470,13 @@ void Game_24()
             }
         }
     }
+
+    for (int i=0; i < 4; ++i){
+            sprintf(game, "Value:%d \r\n", num[i]);
+            SerialPuts(game);
+            //LCD Screen output numbers here
+    }
+
     char buff[100];
     char key = '0';
     int total = num[0];
@@ -509,8 +514,10 @@ void Game_24()
     if (total == 24)
     {
         sprintf(buff, "Correct Value: %d\r\n", total);
+        //LCD Screen
     } else {
         sprintf(buff, "Incorrect Value: %d     Correct Value: 24\r\n", total);
+        //LCD Screen
     }
     
     SerialPuts(buff);
