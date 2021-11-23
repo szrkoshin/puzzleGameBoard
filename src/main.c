@@ -441,20 +441,23 @@ void Game_24()
     
     //Number of Digits
     int num[4] = {};
+    srand(HAL_GetTick());
 
     for (int i=0; i < 4; ++i){
         num[i] = rand() % 9 + 1;
-        sprintf(game, "Value:%d ", num[i]);
+        sprintf(game, "Value:%d \r\n", num[i]);
         SerialPuts(game);
     }
     
     char key = '0';
     int total = num[0];
+    char buff[100];
 
     int i = 1;
     while( i < 4){
         while (ReadKeypad() < 0);
         key = keypad_symbols[ReadKeypad()];
+        int temp = total;
 
         if (key == '+')
         {
@@ -471,12 +474,16 @@ void Game_24()
         } else if (key == '/')
         {
             total /= num[i];
-        }    
-        
+        }
+
+        sprintf(buff, "%d %c %d = %d\r\n", temp, key,num[i], total);
+        SerialPuts(buff);
+        HAL_Delay(100);
+        while (ReadKeypad() > 0);
         ++i;
     }
 
-    char buff[100];
+
 
     if (total == 24)
     {
