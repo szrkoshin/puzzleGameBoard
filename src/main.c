@@ -29,7 +29,7 @@
 
 #include "ece198.h"
 
-void LED_Counter(char *keypad_symbols);
+void LED_Counter();
 void RGB_Reaction();
 void Game_24();
 
@@ -57,8 +57,6 @@ int main(void){
 
 
     InitializeKeypad();
-    char *keypad_symbols = "123A456B789C*0#D";
-
     SerialSetup(9600);
 
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
@@ -69,7 +67,7 @@ int main(void){
         //If button is pressed run LED_Count
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
-            RGB_Reaction();
+            Game_24();
         }
         
         //insert other programs here:
@@ -345,7 +343,8 @@ void SysTick_Handler(void)
     // we can do other things in here too if we need to, but be careful
 }
 
-void LED_Counter(char *keypad_symbols){
+void LED_Counter(){
+    char *keypad_symbols = "123A456B789C*0#D";
     HAL_Delay(2000);
     
     int total = rand() % 9 + 1; // digits 1 to 9
