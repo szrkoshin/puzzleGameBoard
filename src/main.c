@@ -64,14 +64,25 @@ int main(void){
     
     //LED BLINKING COUNTER: TEMPORARILY uses button and led on the board
     while (1){
+        //We'll be using the onboard button.
+        //Initially, if button is pressed, LED_Counter puzzle will run
 
-        //If button is pressed run LED_Count
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
             Game_24();
         }
+
+        //If LED_Counter is won, button will now be used to start RGB_Reaction
         
-        //insert other programs here:
+        //Implement initiation of RGB_Reaction here
+
+        //If RGB_Reaction is won, button will be used to start Game_24
+
+        //Implement initiation of Game_24 here
+
+        //Whole game is complete when all three puzzles are won
+        
+
 
     }
 
