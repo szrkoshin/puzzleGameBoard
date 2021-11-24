@@ -80,12 +80,7 @@ int main(void){
 
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  //when button pressed
         {
-            //Instruction for Puzzle 1:
-            clear();
-            setCursor(0,0);
-            print("Rules: Count the ");
-            setCursor(0,1);
-            print("number of blinks");
+            
             //Puzzle 1: 
             LED_Counter();
 
@@ -377,7 +372,16 @@ void SysTick_Handler(void)
 void LED_Counter(){
     char *keypad_symbols = "123A456B789C*0#D";
     HAL_Delay(2000);
+
+    //Instruction for Puzzle 1:
+    clear();
+    setCursor(0,0);
+    print("Rules: Count the ");
+    setCursor(0,1);
+    print("number of blinks");
     
+    HAL_Delay(2000);
+
     int total = rand() % 9 + 1; // digits 1 to 9
     int i;
 
@@ -417,6 +421,14 @@ void RGB_Reaction()
     // Users will be prompted to react to color WHITE. LED will cycle through different colours 10 times.
     // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
     // rc for random colour
+
+    clear();
+    setCursor(0,0);
+    print("Rules: React when");
+    setCursor(0,1);
+    print("the LED is WHITE ");
+    HAL_Delay(2000);
+
     srand(HAL_GetTick());
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
     int rc = 0;
@@ -461,7 +473,15 @@ void RGB_Reaction()
 }
 
 void Game_24()
-{
+{   
+    HAL_Delay(2000);
+    clear();
+    setCursor(0,0);
+    print("Rules: Use the given");
+    setCursor(0,1);
+    print("numbers to make 24 ");
+    HAL_Delay(2000);
+
     //Prints 24 Game to console
     char game[100];
     sprintf(game, "24 Game\r\n");
