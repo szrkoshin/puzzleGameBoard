@@ -72,10 +72,23 @@ int main(void){
         print("Welcome to our");
         setCursor(0,1);
         print("GRAND PUZZLE");
+        HAL_Delay(3000);
+        clear();
+        setCursor(0,0);
+        print("Press button to play");
 
-        while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
+
+        while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  //when button pressed
         {
-            Game_24();
+            //Instruction for Puzzle 1:
+            clear();
+            setCursor(0,0);
+            print("Rules: Count the ");
+            setCursor(0,1);
+            print("number of blinks");
+            //Puzzle 1: 
+            LED_Counter();
+
         }
 
         //If LED_Counter is won, button will now be used to start RGB_Reaction
