@@ -28,6 +28,7 @@
 #include <time.h> // time function
 
 #include "ece198.h"
+#include "LiquidCrystal.h"
 
 void LED_Counter();
 void RGB_Reaction();
@@ -55,17 +56,22 @@ int main(void){
     //Initialize RGB LED
     InitializePin(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_4, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0);
 
-
+    //Initialize LCD Display
+    LiquidCrystal(GPIOB, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6);
 
     InitializeKeypad();
     SerialSetup(9600);
 
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
     
-    //LED BLINKING COUNTER: TEMPORARILY uses button and led on the board
     while (1){
         //We'll be using the onboard button.
         //Initially, if button is pressed, LED_Counter puzzle will run
+
+        setCursor(0,0);
+        print("Welcome to our");
+        setCursor(0,1);
+        print("GRAND PUZZLE");
 
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))
         {
