@@ -22,6 +22,7 @@ bool LED_Counter();
 void RGB_Reaction();
 bool Game_24();
 int What_Operator(int i, int a, int b); //24_Game Helper Function
+char num_value(int i); //24_Game Helper Function
 
 int main(void){
     HAL_Init();
@@ -269,6 +270,7 @@ bool Game_24()
 
     bool value = false;
     while( value == false){
+
         //Random Numbers
         for (int i=0; i < 4; ++i){
             num[i] = rand() % 9 + 1;
@@ -286,7 +288,8 @@ bool Game_24()
                     if (answer == 24){
                         value = true;
                         char buff[100];
-                        sprintf(buff, "24 found (((%d%d%d)%d%d)%d%d)\r\n", num[0],c,num[1],b,num[2],a,num[3]);
+                        sprintf(buff, "24 found (((%d%c%d)%c%d)%c%d)\r\n", 
+                                        num[0], num_value(c), num[1], num_value(b), num[2], num_value(a), num[3]);
                         SerialPuts(buff);
                     }
                 }
@@ -368,5 +371,24 @@ int What_Operator(int i, int a, int b)
     } else
     {
         return a/b;
+    }
+}
+
+char num_value(int i){
+    if (i == 0)
+    {
+        return '+';
+
+    } else if (i == 1)
+    {
+        return '-';
+
+    } else if (i == 2)
+    {
+        return '*';
+
+    } else
+    {
+        return '/';
     }
 }
