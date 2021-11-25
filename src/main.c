@@ -104,11 +104,15 @@ int main(void){
         if( (win1 == true) && (win2 == true) && (win3 == true))
         {
             //Either add LCD screen win code here or out of the infinite while loop
+
+            char win[100];
+            sprintf(win, "All 3 puzzles have been completed.\nYOU WIN!\n");
+
             clear();
             setCursor(0,0);
-            print("GAME WON!");
+            print("PUZZLES COMPLETE");
             setCursor(0,1);
-            print("Congratulations!");
+            print("YOU WIN!");
             break;
         }
 
@@ -150,11 +154,11 @@ bool LED_Counter(){
     char *keypad_symbols = "123A456B789C*0#D";
     HAL_Delay(2000);
 
-    char buff[100];
-    sprintf(buff, "PUZZLE 1: LED COUNTER\n");
-    SerialPuts(buff);
-    sprintf(buff, "RULE: Count number of blinks and input with keypad\n");
-    SerialPuts(buff);
+    char p1[100];
+    sprintf(p1, "PUZZLE 1: LED COUNTER\n");
+    SerialPuts(p1);
+    sprintf(p1, "RULE: Count number of blinks and input with keypad\n");
+    SerialPuts(p1);
 
     //Instruction for Puzzle 1:
     clear();
@@ -181,13 +185,13 @@ bool LED_Counter(){
     char answer = '0' + total;
 
     bool win = 0;
-    // char buff[100];
+    char buff[100];
     if (key == answer)
     {
         sprintf(buff, "Correct Key Press: %d\r\nPUZZLE 1 COMPLETE\n", total);
         win = true;
     } else {
-        sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\n", key, total);
+        sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\nPush button to retry\n", key, total);
         win = false;
     }
     SerialPuts(buff);
@@ -210,11 +214,11 @@ bool RGB_Reaction()
     char *keypad_symbols = "123A456B789C*0#D";
 
     // Serial output for testing
-    char buff[100];
-    sprintf(buff, "PUZZLE 2: RGB Reaction\n");
-    SerialPuts(buff);
-    sprintf(buff, "RULE: Press any key on keypad when LED is WHITE \n");
-    SerialPuts(buff);
+    char p2[100];
+    sprintf(p2, "PUZZLE 2: RGB Reaction\n");
+    SerialPuts(p2);
+    sprintf(p2, "RULE: Press any key on keypad when LED is WHITE \n");
+    SerialPuts(p2);
 
 
     clear();
@@ -279,7 +283,7 @@ bool RGB_Reaction()
 
         }
         char lost[100];
-        sprintf(lost, "DIDN'T REACT IN TIME, YOU LOST\n");
+        sprintf(lost, "DIDN'T REACT IN TIME\nPush button to retry\n");
         SerialPuts(lost);
         return false;
 
@@ -287,7 +291,14 @@ bool RGB_Reaction()
 
 bool Game_24()
 {   
-    HAL_Delay(2000);
+    HAL_Delay(1000);
+
+    char p3[100];
+    sprintf(p3, "PUZZLE 3: 24 Game\n");
+    SerialPuts(p3);
+    sprintf(p3, "RULE: Arrange four given numbers to compute 24\n");
+    SerialPuts(p3);
+
     clear();
     setCursor(0,0);
     print("Use given nums");
@@ -379,11 +390,11 @@ bool Game_24()
     bool win = 0;
     if (total == 24)
     {
-        sprintf(buff, "Correct Value: %d\r\n", total);
+        sprintf(buff, "Correct Value: %d\r\nPUZZLE 3 COMPLETE\n", total);
         win = true;
 
     } else {
-        sprintf(buff, "Incorrect Value: %d     Correct Value: 24\r\n", total);
+        sprintf(buff, "Incorrect Value: %d     Correct Value: 24\r\nPush button to retry\n", total);
         win = false;
 
     }
