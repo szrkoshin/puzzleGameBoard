@@ -59,9 +59,9 @@ int main(void){
     print("GRAND PUZZLE");
     HAL_Delay(3000);
 
-    bool win1 = 0;
-    bool win2 = 0;
-    bool win3 = 0;
+    bool win1 = false;
+    bool win2 = false;
+    bool win3 = false;
 
     while (1){
         //We'll be using the onboard button.
@@ -328,10 +328,6 @@ bool Game_24()
     print("to make 24 ");
     HAL_Delay(2000);
 
-    //Prints 24 Game to console
-    char game[100];
-    sprintf(game, "24 Game\r\n");
-    SerialPuts(game);
 
     //Key Values
     char *keypad_symbols = "123+456-789*000/";
@@ -370,11 +366,12 @@ bool Game_24()
         }
     }
 
+    char game[100];
     sprintf(game, "Enter Operators in the form: \r\n");
     SerialPuts(game);
     sprintf(game, "(((%d*%d)*%d)*%d)\r\n ",num[0],num[1],num[2],num[3] );
     SerialPuts(game);
-    sprintf(game, "Replace the \"*\" with the operators and enter only the operator into the numpad" );
+    sprintf(game, "Replace the \"*\" with the operators and enter only the operator into the numpad\r\n" );
     SerialPuts(game);
 
     char buff[100];
