@@ -105,6 +105,7 @@ int main(void){
 
             char win[100];
             sprintf(win, "All 3 puzzles have been completed.\nYOU WIN!\n");
+            SerialPuts(win);
 
             clear();
             setCursor(0,0);
