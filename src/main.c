@@ -65,7 +65,7 @@ int main(void){
 
     while (1){
         //We'll be using the onboard button.
-        //Initially, if button is pressed, LED_Counter puzzle will run
+
         
         
         clear();
