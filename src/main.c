@@ -155,9 +155,9 @@ bool LED_Counter(){
     HAL_Delay(2000);
 
     char p1[100];
-    sprintf(p1, "PUZZLE 1: LED COUNTER\n");
+    sprintf(p1, "\n\n\nPUZZLE 1: LED COUNTER\n\n");
     SerialPuts(p1);
-    sprintf(p1, "RULE: Count number of blinks and input with keypad\n");
+    sprintf(p1, "RULE: Count number of blinks and input with keypad\n\n\n");
     SerialPuts(p1);
 
     //Instruction for Puzzle 1:
@@ -188,10 +188,10 @@ bool LED_Counter(){
     char buff[100];
     if (key == answer)
     {
-        sprintf(buff, "Correct Key Press: %d\r\nPUZZLE 1 COMPLETE\nPush button for next puzzle\n", total);
+        sprintf(buff, "Correct Key Press: %d\r\n\nPUZZLE 1 COMPLETE\n\n\nPush button for next puzzle\n", total);
         win = true;
     } else {
-        sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\nPush button to retry\n", key, total);
+        sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\n\n\nPush button to retry\n", key, total);
         win = false;
     }
     SerialPuts(buff);
@@ -215,9 +215,9 @@ bool RGB_Reaction()
 
     // Serial output for testing
     char p2[100];
-    sprintf(p2, "PUZZLE 2: RGB Reaction\n");
+    sprintf(p2, "\n\n\nPUZZLE 2: RGB Reaction\n\n");
     SerialPuts(p2);
-    sprintf(p2, "RULE: Press any key on keypad when LED is WHITE \n");
+    sprintf(p2, "RULE: Spam click any key on keypad when LED is WHITE \n\n\n");
     SerialPuts(p2);
 
 
@@ -257,7 +257,7 @@ bool RGB_Reaction()
 
                         // Serial output for testing
                         char win[100];
-                        sprintf(win, "PUZZLE 2 COMPLETE\nPush button for next puzzle\n");
+                        sprintf(win, "PUZZLE 2 COMPLETE\n\n\nPush button for next puzzle\n");
                         SerialPuts(win);
 
                         clear();
@@ -283,7 +283,7 @@ bool RGB_Reaction()
 
         }
         char lost[100];
-        sprintf(lost, "DIDN'T REACT IN TIME\nPush button to retry\n");
+        sprintf(lost, "DIDN'T REACT IN TIME\n\n\nPush button to retry\n");
         SerialPuts(lost);
         return false;
 
@@ -294,9 +294,9 @@ bool Game_24()
     HAL_Delay(1000);
 
     char p3[100];
-    sprintf(p3, "PUZZLE 3: 24 Game\n");
+    sprintf(p3, "\n\n\nPUZZLE 3: 24 Game\n\n");
     SerialPuts(p3);
-    sprintf(p3, "RULE: Arrange four given numbers to compute 24\n");
+    sprintf(p3, "RULE: Arrange four given numbers to compute 24\n\n\n");
     SerialPuts(p3);
 
     clear();
@@ -394,7 +394,7 @@ bool Game_24()
         win = true;
 
     } else {
-        sprintf(buff, "Incorrect Value: %d     Correct Value: 24\r\nPush button to retry\n", total);
+        sprintf(buff, "Incorrect Value: %d     Correct Value: 24\r\n\n\nPush button to retry\n", total);
         win = false;
 
     }
