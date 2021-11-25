@@ -19,7 +19,7 @@
 #include "LiquidCrystal.h"
 
 bool LED_Counter();
-void RGB_Reaction();
+bool RGB_Reaction();
 bool Game_24();
 int What_Operator(int i, int a, int b); //24_Game Helper Function
 char num_value(int i); //24_Game Helper Function
@@ -76,21 +76,21 @@ int main(void){
             
 
             //Puzzle 1: 
-            if (win1 = false){
+            if (win1 == false){
                 win1 = LED_Counter();
                 break;
             }
 
             //Puzzle 3:
-            /*
-            if (win2 = false){
+            
+            if (win2 == false){
                 win2 = RGB_Reaction();
                 break;
             }
-            */
+            
 
             //Puzzle 3:
-            if (win3 = false){
+            if (win3 == false){
                 win3 = Game_24();
                 break;
             }
@@ -184,7 +184,7 @@ bool LED_Counter(){
 
 //Outputs: RGB LED, LCD display 
 //Inputs: External button
-void RGB_Reaction()
+bool RGB_Reaction()
 {   
     HAL_Delay(2000);
     // Print "RGB REACTION GAME"
@@ -223,7 +223,7 @@ void RGB_Reaction()
                     if (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  // Can change reaction input to be from keypad
                     {
                         gameWon = 1;
-                        break;
+                        return true;
                     }
                 }
             } else
@@ -243,6 +243,7 @@ void RGB_Reaction()
             i++;
 
         }
+        return false;
 
 }
 
