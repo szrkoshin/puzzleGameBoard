@@ -73,7 +73,7 @@ int main(void){
 
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  //when button pressed
         {
-            
+        
 
             //Puzzle 1: 
             if (win1 == false){
@@ -81,7 +81,7 @@ int main(void){
                 break;
             }
 
-            //Puzzle 3:
+            //Puzzle 2:
             
             if (win2 == false){
                 win2 = RGB_Reaction();
@@ -100,6 +100,11 @@ int main(void){
         if( (win1 == true) && (win2 == true) && (win3 == true))
         {
             //Either add LCD screen win code here or out of the infinite while loop
+            clear();
+            setCursor(0,0);
+            print("GAME WON!");
+            setCursor(0,1);
+            print("Congratulations!");
             break;
         }
 
@@ -144,7 +149,7 @@ bool LED_Counter(){
     //Instruction for Puzzle 1:
     clear();
     setCursor(0,0);
-    print("Rules: Count the ");
+    print("Count the ");
     setCursor(0,1);
     print("number of blinks");
     
@@ -195,19 +200,22 @@ bool RGB_Reaction()
     // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
     // rc for random colour
 
+    char *keypad_symbols = "123A456B789C*0#D";
+
     clear();
     setCursor(0,0);
-    print("Rules: React when");
+    print("Click any key ");
     setCursor(0,1);
-    print("the LED is WHITE ");
+    print("when WHITE ");
     HAL_Delay(2000);
 
-    srand(HAL_GetTick());
+
+    srand(HAL_GetTick());   // Ensure randomized seeds
     int correct = rand() % 9 + 1;  // The order in which the CORRECT colour will show up
     int rc = 0;
     int i = 0;
     bool gameWon = 0;
-    srand(HAL_GetTick());
+    srand(HAL_GetTick());   // Ensure randomized seeds
     while (i < 10 && gameWon == 0)
         {
             char buff[100];
@@ -220,9 +228,13 @@ bool RGB_Reaction()
                 // This is where user has window to REACT
                 for (int i = 0; i < 1200; i++)
                 {
-                    if (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  // Can change reaction input to be from keypad
+                    if (ReadKeypad() >= 0)  //User can use any key on keypad to react
                     {
                         gameWon = 1;
+                        clear();
+                        setCursor(0,0);
+                        print("PUZZLE 2 COMPLETE");
+                        HAL_Delay(2000);
                         return true;
                     }
                 }
@@ -252,9 +264,9 @@ bool Game_24()
     HAL_Delay(2000);
     clear();
     setCursor(0,0);
-    print("Rules: Use the given");
+    print("Use given nums");
     setCursor(0,1);
-    print("numbers to make 24 ");
+    print("to make 24 ");
     HAL_Delay(2000);
 
     //Prints 24 Game to console
