@@ -188,7 +188,7 @@ bool LED_Counter(){
     char buff[100];
     if (key == answer)
     {
-        sprintf(buff, "Correct Key Press: %d\r\nPUZZLE 1 COMPLETE\n", total);
+        sprintf(buff, "Correct Key Press: %d\r\nPUZZLE 1 COMPLETE\nPush button for next puzzle\n", total);
         win = true;
     } else {
         sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\nPush button to retry\n", key, total);
@@ -257,7 +257,7 @@ bool RGB_Reaction()
 
                         // Serial output for testing
                         char win[100];
-                        sprintf(win, "PUZZLE 2 COMPLETE\n");
+                        sprintf(win, "PUZZLE 2 COMPLETE\nPush button for next puzzle\n");
                         SerialPuts(win);
 
                         clear();
