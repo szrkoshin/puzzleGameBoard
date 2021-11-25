@@ -210,7 +210,7 @@ bool RGB_Reaction()
     // There are 8 possible colors. color value for WHITE is 7. (1 1 1) 
     // rc for random colour
 
-    char *keypad_symbols = "123A456B789C*0#D";
+    //char *keypad_symbols = "123A456B789C*0#D";
 
     // Serial output for testing
     char p2[100];
@@ -359,21 +359,23 @@ bool Game_24()
                     int answer = What_Operator(a, What_Operator(b, What_Operator(c,num[0],num[1] ), num[2]), num[3]);
                     if (answer == 24){
                         value = true;
-                        char buff[100];
-                        sprintf(buff, "24 found (((%d%c%d)%c%d)%c%d)\r\n", 
-                                        num[0], num_value(c), num[1], num_value(b), num[2], num_value(a), num[3]);
-                        SerialPuts(buff);
+                        //char buff[100];
+                        //Testing Outputs
+                        //sprintf(buff, "24 found (((%d%c%d)%c%d)%c%d)\r\n", 
+                        //                num[0], num_value(c), num[1], num_value(b), num[2], num_value(a), num[3]);
+                        //SerialPuts(buff);
                     }
                 }
             }
         }
     }
 
-    for (int i=0; i < 4; ++i){
-            sprintf(game, "Value:%d \r\n", num[i]);
-            SerialPuts(game);
-            //LCD Screen output numbers here
-    }
+    sprintf(game, "Enter Operators in the form: \r\n");
+    SerialPuts(game);
+    sprintf(game, "(((%d*%d)*%d)*%d)\r\n ",num[0],num[1],num[2],num[3] );
+    SerialPuts(game);
+    sprintf(game, "Replace the \"*\" with the operators and enter only the operator into the numpad" );
+    SerialPuts(game);
 
     char buff[100];
     char key = '0';
