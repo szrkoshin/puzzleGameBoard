@@ -228,7 +228,8 @@ bool RGB_Reaction()
                 // This is where user has window to REACT
                 for (int i = 0; i < 1200; i++)
                 {
-                    if (ReadKeypad() >= 0)  //User can use any key on keypad to react
+                    //User can use any key on keypad to react
+                    if (ReadKeypad() >= 0 || ReadKeypad() == 'A' || ReadKeypad() == 'B' || ReadKeypad() == 'C' || ReadKeypad() == 'D' || ReadKeypad() == '*' || ReadKeypad() == '#')  
                     {
                         gameWon = 1;
                         clear();
