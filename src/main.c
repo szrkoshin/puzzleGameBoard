@@ -74,26 +74,26 @@ int main(void){
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  //when button pressed
         {
         
+            RGB_Reaction();
+            // //Puzzle 1: 
+            // if (win1 == false){
+            //     win1 = LED_Counter();
+            //     break;
+            // }
 
-            //Puzzle 1: 
-            if (win1 == false){
-                win1 = LED_Counter();
-                break;
-            }
-
-            //Puzzle 2:
+            // //Puzzle 2:
             
-            if (win2 == false){
-                win2 = RGB_Reaction();
-                break;
-            }
+            // if (win2 == false){
+            //     win2 = RGB_Reaction();
+            //     break;
+            // }
             
 
-            //Puzzle 3:
-            if (win3 == false){
-                win3 = Game_24();
-                break;
-            }
+            // //Puzzle 3:
+            // if (win3 == false){
+            //     win3 = Game_24();
+            //     break;
+            // }
         }
 
         //Whole game is complete when all three puzzles are won
@@ -231,6 +231,10 @@ bool RGB_Reaction()
                     //User can use any key on keypad to react
                     if (ReadKeypad() >= 0 || ReadKeypad() == 'A' || ReadKeypad() == 'B' || ReadKeypad() == 'C' || ReadKeypad() == 'D' || ReadKeypad() == '*' || ReadKeypad() == '#')  
                     {
+                        HAL_Delay(250);
+                        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  //Turn off LED
+                        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
+                        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
                         gameWon = 1;
                         clear();
                         setCursor(0,0);
