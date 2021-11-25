@@ -53,11 +53,13 @@ int main(void){
 
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
     
-    setCursor(0,0);
-    print("Welcome to our");
-    setCursor(0,1);
-    print("GRAND PUZZLE");
-    HAL_Delay(3000);
+    // setCursor(0,0);
+    // print("Welcome to our");
+    // setCursor(0,1);
+    // print("GRAND PUZZLE");
+    // HAL_Delay(3000);
+
+
 
     bool win1 = 0;
     bool win2 = 0;
