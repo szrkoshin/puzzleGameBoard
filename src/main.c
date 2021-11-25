@@ -67,6 +67,7 @@ int main(void){
         //We'll be using the onboard button.
         //Initially, if button is pressed, LED_Counter puzzle will run
         
+        
         clear();
         setCursor(0,0);
         print("Press button to play");
@@ -74,7 +75,7 @@ int main(void){
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  //when button pressed
         {
         
-            
+
             //Puzzle 1: 
             if (win1 == false){
                 win1 = LED_Counter();
@@ -94,6 +95,7 @@ int main(void){
                 win3 = Game_24();
                 break;
             }
+
         }
 
         //Whole game is complete when all three puzzles are won
@@ -146,6 +148,12 @@ bool LED_Counter(){
     char *keypad_symbols = "123A456B789C*0#D";
     HAL_Delay(2000);
 
+    char buff[100];
+    sprintf(buff, "PUZZLE 1: LED COUNTER\n");
+    SerialPuts(buff);
+    sprintf(buff, "RULE: Count number of blinks and input with keypad\n");
+    SerialPuts(buff);
+
     //Instruction for Puzzle 1:
     clear();
     setCursor(0,0);
@@ -153,7 +161,7 @@ bool LED_Counter(){
     setCursor(0,1);
     print("number of blinks");
     
-    HAL_Delay(2000);
+    HAL_Delay(4000);
 
     int total = rand() % 9 + 1; // digits 1 to 9
     int i;
@@ -171,10 +179,10 @@ bool LED_Counter(){
     char answer = '0' + total;
 
     bool win = 0;
-    char buff[100];
+    // char buff[100];
     if (key == answer)
     {
-        sprintf(buff, "Correct Key Press: %d\r\n", total);
+        sprintf(buff, "Correct Key Press: %d\r\nPUZZLE 1 COMPLETE\n", total);
         win = true;
     } else {
         sprintf(buff, "Incorrect Key Press: %c     Correct Key Press: %d\r\n", key, total);
@@ -191,9 +199,6 @@ bool LED_Counter(){
 //Inputs: External button
 bool RGB_Reaction()
 {   
-    HAL_Delay(2000);
-    // Print "RGB REACTION GAME"
-    // Print "Click button when LED turns WHITE"
 
     // Modified game rules:
     // Users will be prompted to react to color WHITE. LED will cycle through different colours 10 times.
@@ -202,12 +207,20 @@ bool RGB_Reaction()
 
     char *keypad_symbols = "123A456B789C*0#D";
 
+    // Serial output for testing
+    char buff[100];
+    sprintf(buff, "PUZZLE 2: RGB Reaction\n");
+    SerialPuts(buff);
+    sprintf(buff, "RULE: Press any key on keypad when LED is WHITE \n");
+    SerialPuts(buff);
+
+
     clear();
     setCursor(0,0);
     print("Click any key ");
     setCursor(0,1);
     print("when WHITE ");
-    HAL_Delay(2000);
+    HAL_Delay(4000);
 
 
     srand(HAL_GetTick());   // Ensure randomized seeds
@@ -218,7 +231,6 @@ bool RGB_Reaction()
     srand(HAL_GetTick());   // Ensure randomized seeds
     while (i < 10 && gameWon == 0)
         {
-            char buff[100];
             if (i == correct)
             {
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
@@ -229,16 +241,22 @@ bool RGB_Reaction()
                 for (int i = 0; i < 1200; i++)
                 {
                     //User can use any key on keypad to react
-                    if (ReadKeypad() >= 0 || ReadKeypad() == 'A' || ReadKeypad() == 'B' || ReadKeypad() == 'C' || ReadKeypad() == 'D' || ReadKeypad() == '*' || ReadKeypad() == '#')  
+                    if (ReadKeypad() >= 0)  
                     {
                         HAL_Delay(250);
                         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  //Turn off LED
                         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
                         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
                         gameWon = 1;
+
+                        // Serial output for testing
+                        char win[100];
+                        sprintf(win, "PUZZLE 2 COMPLETE\n");
+                        SerialPuts(win);
+
                         clear();
                         setCursor(0,0);
-                        print("PUZZLE 2 COMPLETE");
+                        print("PUZZLE 2 COMPLETE\n");
                         HAL_Delay(2000);
                         return true;
                     }
@@ -249,8 +267,6 @@ bool RGB_Reaction()
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
-                sprintf(buff, "Colour value is: %d ", rc);
-                SerialPuts(buff);
                 HAL_Delay(1200);
             }
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
@@ -260,6 +276,9 @@ bool RGB_Reaction()
             i++;
 
         }
+        char lost[100];
+        sprintf(lost, "DIDN'T REACT IN TIME, YOU LOST\n");
+        SerialPuts(lost);
         return false;
 
 }
