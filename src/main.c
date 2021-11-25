@@ -74,26 +74,26 @@ int main(void){
         while (!HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13))  //when button pressed
         {
         
-            RGB_Reaction();
-            // //Puzzle 1: 
-            // if (win1 == false){
-            //     win1 = LED_Counter();
-            //     break;
-            // }
-
-            // //Puzzle 2:
             
-            // if (win2 == false){
-            //     win2 = RGB_Reaction();
-            //     break;
-            // }
+            //Puzzle 1: 
+            if (win1 == false){
+                win1 = LED_Counter();
+                break;
+            }
+
+            //Puzzle 2:
+            
+            if (win2 == false){
+                win2 = RGB_Reaction();
+                break;
+            }
             
 
-            // //Puzzle 3:
-            // if (win3 == false){
-            //     win3 = Game_24();
-            //     break;
-            // }
+            //Puzzle 3:
+            if (win3 == false){
+                win3 = Game_24();
+                break;
+            }
         }
 
         //Whole game is complete when all three puzzles are won
