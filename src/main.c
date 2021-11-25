@@ -157,7 +157,7 @@ bool LED_Counter(){
     char p1[100];
     sprintf(p1, "\n\n\nPUZZLE 1: LED COUNTER\n\n");
     SerialPuts(p1);
-    sprintf(p1, "RULE: Count number of blinks and input with keypad\n\n\n");
+    sprintf(p1, "RULE: Count number of blinks and input using keypad\n\nPay attention to the LED on the board\n\n\n");
     SerialPuts(p1);
 
     //Instruction for Puzzle 1:
@@ -169,6 +169,7 @@ bool LED_Counter(){
     
     HAL_Delay(4000);
 
+    srand(HAL_GetTick());
     int total = rand() % 9 + 1; // digits 1 to 9
     int i;
 
@@ -217,7 +218,7 @@ bool RGB_Reaction()
     char p2[100];
     sprintf(p2, "\n\n\nPUZZLE 2: RGB Reaction\n\n");
     SerialPuts(p2);
-    sprintf(p2, "RULE: Spam click any key on keypad when LED is WHITE \n\n\n");
+    sprintf(p2, "RULE: Click any key on keypad when LED is WHITE \n\n\n");
     SerialPuts(p2);
 
 
@@ -242,9 +243,9 @@ bool RGB_Reaction()
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
-                HAL_Delay(1200);
+                HAL_Delay(500);
                 // This is where user has window to REACT
-                for (int i = 0; i < 1200; i++)
+                for (int i = 0; i < 5000; i++)
                 {
                     //User can use any key on keypad to react
                     if (ReadKeypad() >= 0)  
@@ -273,7 +274,30 @@ bool RGB_Reaction()
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
-                HAL_Delay(1200);
+                HAL_Delay(500);
+                for (int i = 0; i < 5000; i++)
+                {
+                    //User can use any key on keypad to react
+                    if (ReadKeypad() >= 0)  
+                    {
+                        HAL_Delay(250);
+                        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  //Turn off LED
+                        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
+                        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0 & 0x04);
+                        gameWon = 1;
+
+                        // Serial output for testing
+                        char wrong[100];
+                        sprintf(wrong, "WRONG COLOUR\n\n\nPush button to retry\n");
+                        SerialPuts(wrong);
+
+                        clear();
+                        setCursor(0,0);
+                        print("WRONG COLOUR\n");
+                        HAL_Delay(2000);
+                        return false;
+                    }
+                }
             }
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 0 & 0x01);  
             HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0 & 0x02);  
