@@ -53,13 +53,11 @@ int main(void){
 
     srand(time(NULL)); //Generates A New Set of random numbers for every reset
     
-    // setCursor(0,0);
-    // print("Welcome to our");
-    // setCursor(0,1);
-    // print("GRAND PUZZLE");
-    // HAL_Delay(3000);
-
-
+    setCursor(0,0);
+    print("Welcome to our");
+    setCursor(0,1);
+    print("GRAND PUZZLE");
+    HAL_Delay(3000);
 
     bool win1 = 0;
     bool win2 = 0;
@@ -68,8 +66,6 @@ int main(void){
     while (1){
         //We'll be using the onboard button.
 
-        
-        
         clear();
         setCursor(0,0);
         print("Press button to play");
@@ -97,6 +93,8 @@ int main(void){
                 win3 = Game_24();
                 break;
             }
+
+
 
         }
 
@@ -243,9 +241,9 @@ bool RGB_Reaction()
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, 7 & 0x01);  
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 7 & 0x02);  
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 7 & 0x04); 
-                HAL_Delay(500);
+                HAL_Delay(400);
                 // This is where user has window to REACT
-                for (int i = 0; i < 5000; i++)
+                for (int i = 0; i < 4500; i++)
                 {
                     //User can use any key on keypad to react
                     if (ReadKeypad() >= 0)  
@@ -274,8 +272,8 @@ bool RGB_Reaction()
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, rc & 0x01);
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, rc & 0x02); 
                 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, rc & 0x04);
-                HAL_Delay(500);
-                for (int i = 0; i < 5000; i++)
+                HAL_Delay(400);
+                for (int i = 0; i < 4500; i++)
                 {
                     //User can use any key on keypad to react
                     if (ReadKeypad() >= 0)  
